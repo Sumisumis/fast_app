@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../../axios";
+import { requests } from "../../request";
 
 // ②データの整形
 export type Movie = {
@@ -11,7 +12,7 @@ export type Movie = {
 
 export const useProps = (fetchUrl: string) => {
   const [movies, setMovies] = useState<Movie[]>([]);
-
+  const [trailerUrl, setTrailerUrl] = useState<string | null>("");
     // ①APIの取得はuseEffectを使う
   useEffect(() => {
     async function fetchData() {
@@ -30,5 +31,18 @@ export const useProps = (fetchUrl: string) => {
     fetchData();
   }, [fetchUrl]);
 
-  return movies;
+  const handleClick = async (movie: Movie) => {
+    if (trailerUrl) {
+      setTrailerUrl("");
+    } else {
+      const movePlayUrl = await axios.get(requests.fetchMovieVideos(movie.id));
+      setTrailerUrl(movePlayUrl.data.results[0]?.key);
+    }
+  }
+
+  return {
+    movies,
+    trailerUrl,
+    handleClick,
+  };
 };
