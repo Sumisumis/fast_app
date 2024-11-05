@@ -6,7 +6,7 @@ import { Header } from "./components/Header";
 function App() {
   return (
    // 追加箇所
-    <div className="App">
+    <div className="App bg-black">
       <Header />
       <Banner />
       <Row

@@ -7,7 +7,7 @@ export const useProps = () => {
       setShow(window.scrollY > 100);
     };
 
-　　　　　　　// ②イベントリスナーの設定
+        // ②イベントリスナーの設定
     window.addEventListener("scroll", handleShow);
     return () => {
       window.removeEventListener("scroll", handleShow);
